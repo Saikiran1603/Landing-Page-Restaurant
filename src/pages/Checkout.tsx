@@ -1,10 +1,10 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { go } from '../route'
 import { CartLine } from './Order'
 
-type CheckoutProps = { cart: CartLine[] }
+type CheckoutProps = { cart: CartLine[]; onOrderSuccess: () => void }
 
-export function Checkout({ cart }: CheckoutProps) {
+export function Checkout({ cart, onOrderSuccess }: CheckoutProps) {
   const [address, setAddress] = useState('1131 Ogden Ave, Bronx, NY 10452, United States')
   const [addressOpen, setAddressOpen] = useState(false)
   const [addressDraft, setAddressDraft] = useState(address)
@@ -13,10 +13,17 @@ export function Checkout({ cart }: CheckoutProps) {
   const [payment, setPayment] = useState('cash')
   const [accepted, setAccepted] = useState(true)
   const [status, setStatus] = useState('')
+  const [orderPlaced, setOrderPlaced] = useState(false)
 
   const subtotal = cart.reduce((total, line) => total + line.dish.price * line.qty, 0)
   const tax = subtotal ? 3.5 : 0
   const total = subtotal + tax
+
+  useEffect(() => {
+    if (!orderPlaced) return
+    const timeout = window.setTimeout(() => go('menu'), 2000)
+    return () => window.clearTimeout(timeout)
+  }, [orderPlaced])
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -24,7 +31,9 @@ export function Checkout({ cart }: CheckoutProps) {
       setStatus('Please accept the Terms of use & Privacy Policy.')
       return
     }
-    setStatus('Your order has been placed successfully.')
+    setStatus('')
+    onOrderSuccess()
+    setOrderPlaced(true)
   }
 
   return (
@@ -77,6 +86,7 @@ export function Checkout({ cart }: CheckoutProps) {
         <div className="flex flex-col items-center gap-3"><p className="text-sm">Total: <strong className="text-orange">${total.toFixed(2)}</strong></p><button type="submit" className="btn-o w-full max-w-xs !rounded-xl">Order now</button></div>
       </form>
 
+      {orderPlaced && <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4" role="alertdialog" aria-modal="true" aria-labelledby="order-success-title"><div className="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-2xl dark:bg-night2"><div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-leaf text-2xl text-white" aria-hidden="true">✓</div><h2 id="order-success-title" className="mt-4 text-xl font-semibold">Order Successfully</h2><p className="mt-2 text-sm opacity-75">Your order has been placed.</p><button type="button" onClick={() => go('menu')} className="btn-o mt-6 w-full !rounded-xl">Go to Menu</button></div></div>}
       {addressOpen && <div className="fixed inset-0 z-50 grid place-items-center bg-brown/60 p-4"><div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl dark:bg-night2"><div className="flex items-center justify-between"><h2 className="text-xl font-semibold">Shipping address</h2><button type="button" onClick={() => setAddressOpen(false)} className="text-2xl" aria-label="Close">×</button></div><div className="mt-5 flex gap-3"><input className="field" value={addressDraft} onChange={event => setAddressDraft(event.target.value)} placeholder="Please type your address" /><button type="button" onClick={() => setAddress(addressDraft.trim() || address)} className="btn-g shrink-0 !rounded-xl">Search</button></div><button type="button" onClick={() => setAddress('Current location')} className="mt-3 text-sm text-red-500">Use your current location</button><div className="mt-5 grid min-h-56 place-items-center rounded-xl bg-[#d7e3d0] p-6 text-center text-sm text-brown"><div className="rounded-xl bg-white p-4 shadow"><strong>Selected address</strong><p className="mt-1">{addressDraft || 'Choose an address above'}</p></div></div><button type="button" onClick={() => setAddressOpen(false)} className="btn-o mt-5 w-full !rounded-xl">Confirmation</button></div></div>}
     </section>
   )

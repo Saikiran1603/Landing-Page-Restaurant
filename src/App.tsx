@@ -24,12 +24,11 @@ export default function App() {
   const add = (d: Dish) => setCart(c => c.some(l => l.dish.id === d.id) ? c.map(l => l.dish.id === d.id ? { ...l, qty: l.qty + 1 } : l) : [...c, { dish: d, qty: 1 }])
   const setQty = (id: number, q: number) => setCart(c => c.map(l => l.dish.id === id ? { ...l, qty: q } : l).filter(l => l.qty > 0))
   const count = cart.reduce((s, l) => s + l.qty, 0)
-  const authenticated = Boolean(localStorage.getItem('delizioso-current-user'))
-  const visibleRoute = authenticated || route === 'login' || route === 'signup' ? route : 'signup'
+  const visibleRoute = route
 
   const page = {
     home: <Home add={add} />, menu: <MenuPage add={add} />, about: <About />, reservation: <Reservation />, contact: <Contact />,
-    order: <Order add={add} cart={cart} setQty={setQty} />, checkout: <Checkout cart={cart} />, login: <Auth mode="login" />, signup: <Auth mode="signup" />,
+    order: <Order add={add} cart={cart} setQty={setQty} />, checkout: <Checkout cart={cart} onOrderSuccess={() => setCart([])} />, login: <Auth mode="login" />, signup: <Auth mode="signup" />,
   }[visibleRoute] ?? <Home add={add} />
 
   return (<><Navbar route={visibleRoute} cart={count} dark={dark} toggle={toggle} /><main>{page}</main>{visibleRoute !== 'login' && visibleRoute !== 'signup' && <Footer />}</>)

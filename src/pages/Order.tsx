@@ -46,7 +46,7 @@ export function Order({ add, cart, setQty }: { add: Add; cart: CartLine[]; setQt
           <p className="mt-6 text-xs font-semibold">Voucher Code</p>
           <div className="mt-2 flex gap-2"><input value={code} onChange={e => setCode(e.target.value)} className="field !py-2.5 text-center text-blue-600" /><button className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-sky-500 text-white">+</button></div>
           <dl className="mt-5 space-y-2 border-t pt-4 text-xs">{([['Subtotal', sub], ['Tax fee', tax], ['Voucher', voucher]] as [string, number][]).map(([k, v]) => <div key={k} className="flex justify-between"><dt className="font-semibold">{k}</dt><dd className="font-semibold text-orange">${v.toFixed(2)}</dd></div>)}</dl>
-          <button onClick={() => go('checkout')} className="btn-o mt-5 w-full !rounded-xl">Checkout · ${Math.max(sub + tax - voucher, 0).toFixed(2)}</button>
+          <button onClick={() => go('checkout')} className="btn-o mt-5 w-full !rounded-xl">Order Now · ${Math.max(sub + tax - voucher, 0).toFixed(2)}</button>
         </aside>
       </div>
     </Section>

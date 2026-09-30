@@ -8,6 +8,8 @@ const FooterCol = ({ title, items }: { title: string; items: string[] }) => (
 )
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-[#2E1D0A] py-14 text-white dark:bg-black/40">
       <div className="wrap grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
@@ -25,7 +27,7 @@ export function Footer() {
           <p className="mt-3 text-xs">+123 4567 8901</p>
         </div>
       </div>
-      <p className="wrap mt-12 text-center text-xs">Copyright © 2022 Delizioso</p>
+      <p className="wrap mt-12 text-center text-xs">Copyright © {currentYear} Delizioso</p>
     </footer>
   )
 }
