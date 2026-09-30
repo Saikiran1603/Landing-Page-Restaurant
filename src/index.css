@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  body { @apply bg-white font-sans text-brown antialiased dark:bg-night dark:text-cream; }
+}
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-6xl px-5 md:px-8; }
+  .title { @apply font-serif text-3xl font-bold md:text-5xl; }
+  .btn { @apply inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white transition hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange; }
+  .btn-o { @apply btn bg-orange; }
+  .btn-g { @apply btn bg-leaf; }
+  .field { @apply w-full rounded-xl bg-field px-4 py-3.5 text-sm outline-none placeholder:text-brown/40 focus:ring-2 focus:ring-orange dark:bg-night2 dark:placeholder:text-cream/40; }
+  .card { @apply rounded-[32px] bg-cream p-5 dark:bg-night2; }
+  .dish-img { @apply rounded-full object-cover shadow-[0_18px_30px_-12px_rgba(0,0,0,.25)]; }
+}
