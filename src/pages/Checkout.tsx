@@ -68,7 +68,7 @@ export function Checkout({ cart }: CheckoutProps) {
         <fieldset>
           <legend className="mb-5 text-lg font-semibold">Payment method</legend>
           <div className="grid gap-4 sm:grid-cols-2">
-            {([['cash', 'Cash On Delivery'], ['virtual', 'BCA Virtual Account'], ['card', 'Credit Card'], ['bank', 'Transfer Bank']] as const).map(([value, label]) => <label key={value} className="flex cursor-pointer items-center gap-3 rounded-xl bg-field px-5 py-4"><input type="radio" name="payment" value={value} checked={payment === value} onChange={() => setPayment(value)} className="h-5 w-5 accent-leaf" />{label}</label>)}
+            {([['cash', 'Cash On Delivery'], ['virtual', 'BCA Virtual Account'], ['card', 'Credit Card'], ['bank', 'Transfer Bank']] as const).map(([value, label]) => <label key={value} className="flex cursor-pointer items-center gap-3 rounded-xl bg-field px-5 py-4 text-brown dark:bg-night2 dark:text-cream"><input type="radio" name="payment" value={value} checked={payment === value} onChange={() => setPayment(value)} className="h-5 w-5 accent-leaf" />{label}</label>)}
           </div>
         </fieldset>
 

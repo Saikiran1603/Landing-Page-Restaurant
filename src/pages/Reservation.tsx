@@ -40,7 +40,7 @@ export function Reservation() {
       </div></section>
       {step === 'details' && <Modal onClose={() => setStep('form')}>
         <h2 className="text-center font-serif text-3xl font-bold">Reservation</h2>
-        <p className="mt-4 rounded-lg bg-skybanner p-3 text-xs text-sky-900 dark:text-sky-100">Due to limited availability, we can hold this table for you for <b>5:00 minutes</b></p>
+        <p className="mt-4 rounded-lg bg-skybanner p-3 text-xs text-sky-900 dark:bg-sky-900/70 dark:text-sky-100">Due to limited availability, we can hold this table for you for <b>5:00 minutes</b></p>
         <div className="mt-5 grid gap-5 sm:grid-cols-[1.4fr_1fr]">
           <div className="space-y-3"><p className="text-sm font-semibold">Reservation details</p>
             <input className="field" placeholder="First name" /><input className="field" placeholder="Last name" /><input className="field" placeholder="Phone number" /><input className="field" placeholder="Email address" />
