@@ -3,7 +3,7 @@ import { img, lorem } from '../data'
 import { Ringed } from '../components/Ringed'
 import { Detail, Modal } from './ReservationModal'
 
-const dateOptions = ['Tuesday, 12 November 2024', 'Friday, 15 November 2024', 'Saturday, 23 November 2024']
+const dateOptions = ['Tuesday, 12 November 2026', 'Friday, 15 November 2026', 'Saturday, 23 November 2026']
 const timeOptions = ['6:00 PM', '7:30 PM', '8:30 PM', '9:00 PM']
 const partyOptions = ['2 people', '4 people', '6 people', '8 people']
 
